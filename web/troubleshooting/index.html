@@ -1,0 +1,136 @@
+<html><head>
+<title>QuteMol</title>
+<meta 
+content="QuteMol an open source, high quality molecular visualization system" 
+name=description>
+<meta 
+content="molecular, visualization, open source, ambient occlusion, molecular graphics, PDB, high quality" 
+name=keywords>
+<style><!--a{color=0000BB;text-decoration:none;}
+	//--> 
+	</style>
+
+<style><!--a:hover{color:9999FF;text-decoration:none;}
+	//--> 
+	</style>
+
+<style> .hidden {display:none;}
+	.shown {display:inline;}
+	</style>
+
+</head>
+<body style="FONT-FAMILY: Arial" text=#000000 bottomMargin=0 bgColor=#ffffff 
+leftMargin=11 topMargin=10 rightMargin=0>
+
+<font size=+4>QuteMol:</font><font size=+2> Trobleshooting Guide</font>
+
+<p>
+<i><b>Problem:</b> QuteMol refuses to start!</i>
+</p><p>
+Most probably, the video card is not up to the task.<br>The most advanced feature required by QuteMol
+is support for FrameBufferObjects (<b>FBO</b>).<br>
+You can check 
+<a href="http://www.delphi3d.net/hardware/extsupport.php?extension=GL_EXT_framebuffer_object"><img border=0 src="../qicons/extlink.gif">this list</a>
+of video card models that are supposed to support FBO. <br>Sometimes, the card is capable of supporting FBO 
+but its driver it is not. Updating the video drivers could fix the problem.<br>
+No, we don't plan to implement a 
+fall back strategy for machines without FBO support: video card capabilities are increasing fast, so
+we think it is not worth it (at least not with an high priority). 
+</p>
+<hr>
+<p>
+<i><b>Problem:</b> the "custom" sliders occasinally stop responding</i>
+</p><p>
+On same older card, this problem is related to the maximum size of the fragment program, so when
+the combination of settings results in a too complex per-pixel processing, it will just stop working.
+This has been reported on a ATI Radeon 9800 PRO, and there is no solution yet. 
+</p>
+<hr>
+<p>
+<i><b>Problem:</b> an error message occurs when I try to save a snapshot</i>
+</p><p>
+On same platform, this problem is related to the maximum size of the screen buffer.
+You can edit manually the file "qutemol.cfg" (which is created at the 1st execution
+in the same directory where you installed qutemol)
+and set SNAP_SIZE to 512. Restart QuteMol for changes to take place.<br>However, screenshots will be smaller. 
+</p>
+<hr>
+<p>
+<i><b>Problem:</b> the "global illumination" term looks totally wrong!</i>
+</p><p>
+There is a bug on some NVidia card per-fragment program. Newest generation cards and 
+drivers do not show this, and sometimes the bugs heals updating video drivers. However for some model 
+that is not the case.<br>
+<a href="porin.pdb.jpg">Here</a> 
+is how the "porin" molecule (included in the installer) can look like 
+as a result of this bugs.
+<br>
+To fix this, you can edit the "qutemol.cfg" (which is created at the 1st execution
+in the same directory where you installed qutemol)
+and set "doubleSM" to 0 and "NVIDIA_PATCH" to 1. This somewhat worsen both computation
+times and rendering quality (as far as ambient occlusion is concerned), so don't
+do this unless needed to fix the bug.<br>
+Restart QuteMol for changes to take place.
+<br>
+This BUG has been reported on some 6xxx generation NVidia cards.
+</p>
+<hr>
+<p>
+<i><b>Problem:</b> on larger molecules, the "global illumination" terms seems somewhat wrong.</i>
+</p><p>
+When a molecule exceeds some 32K atoms, the texture required to achieve
+the same quality exceeds the default max texture size: the effect is that the molecule
+looks a lot darker in some parts, as if lighted from a direction.<br>Currently, this must be fixed manually:
+edit the file "qutemol.cfg" (which is created at the 1st execution
+in the same directory where you installed qutemol)
+and set "TSIZE" (1024 by default) to 2048 (however, this could slow down
+AO computation on some machine). Restart QuteMol for changes to take place. <i>Unpdate</i>
+from version 0,3 on, texture size is automatically increase by the system when the size of the
+molecule requires it; if you encounter problem you can lower the max texture size "MAX_TSIZE".
+<br>
+This will hopefully be automatic on newer version.
+</p>
+<hr>
+<p>
+<i><b>Problem:</b> the "global illumination" computation is too slow / the frame rate is too slow!</i>
+</p><p>
+On older machines, you might want to trade speed for visual quality.
+You can do that by changing the first 6 parameters inside the file "qutemol.cfg" (which is created at the 1st execution
+in the same directory where you installed qutemol).
+<br>
+Restart QuteMol for changes to take place.
+<br>As a general rule, larger
+values means higher quality rendering, and smaller values make for faster
+rendering times. All values but "N_VIEW_DIR" must be powers of 2. If you
+want to undo your changes, simply delete  "qutemol.cfg" (it will be recreated
+at the next execution).
+</p>
+
+<br> <small> Last updated on 26/09/06</small>
+
+<!-- ********************* phpmyvisites ********************* --><a 
+title="phpMyVisites | Open source web analytics" 
+onclick=window.open(this.href);return(false); 
+href="http://www.phpmyvisites.net/">
+<script type=text/javascript>
+<!--
+var a_vars = Array();
+var pagename='TroubleShooting';
+
+var phpmyvisitesSite = 1;
+var phpmyvisitesURL = "http://qutemol.sourceforge.net/phpmv2/phpmyvisites.php";
+//-->
+</script>
+
+<script language=javascript 
+src="http://qutemol.sourceforge.net/phpmv2/phpmyvisites.js" type=text/javascript></script>
+<noscript>
+<p>
+<!-- <img src="http://qutemol.sourceforge.net/phpmv2/phpmyvisites.php" alt="phpMyVisites" style="border:0" /> --></p></noscript></a>
+<!-- ********************* phpmyvisites ********************* -->
+
+<center>
+<a href="../">[back]</a>
+</center>
+
+</body></html>

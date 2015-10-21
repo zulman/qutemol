@@ -1,0 +1,10 @@
+QuteMol depends on the following libraries
+
+vcglib
+available on cvs access from http://vcg.sourceforge.net
+
+wxWidgets
+http://www.wxwidgets.org/
+
+The standard building environment of QuteMol is DevCpp. 
+and it assume that the cvs root of QuteMol is at the same level of the cvs root of vcglib 
